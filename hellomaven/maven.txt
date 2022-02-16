@@ -1,0 +1,35 @@
+- mvn archetype:generate -DgroupId=com.bharath -DartifactId=hellomaven -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+    * archetype:generate - генерує проект з архітипу
+    * -DarchetypeArtifactId=maven-archetype-quickstart - задання дефолтного архітипу
+    * -DinteractiveMode=false - виключає інтерактивний режим, коли мавен почергово запитує ввід параметрів
+
+- mvn install - компілює, ранить тести та пакує проект
+    * компілює - створює target папку з .class файлами
+    * пакує - Створює jar файл, який може бути запущений
+
+- Наступні конфіги дозволять засетити версію джави
+    <properties>
+       <maven.compiler.source>1.8</maven.compiler.source>
+       <maven.compiler.target>1.8</maven.compiler.target>
+     </properties>
+
+- Щоб запустити Java програму: java -cp target/hellomaven-1.0-SNAPSHOT.jar com.bharath.App
+    * cp - classPath, треба прописати шлях до джарки
+    * далі треба прописати клас, який буде вхідною точкою програми
+
+- Плагіни:
+    * Плагіни складаються з голів. Наприклад mvn archetype:generate ранить generate гол плагіну archetype
+    * Параметри задають як -DparamName=paramValue
+
+- Фази:
+    * Фази самі по собі нічого не роблять - вони просто містять складаються з плагінів та голів
+    * Наприклад: install команда складається з наступних фаз: process-resources, compile, test, package
+    * Наприклад фаза process-resources під собою виконує resources:resource гол
+    * Наприклад фаза test під собою виконує surefire:test гол
+    * Все виконується ланцюжком. Якщо виконати mvn surefire:test, то виконаються також пов'язані з попередніми фазами голи: process-resources, compile
+
+- Coordinates:
+    * groupId - реверс доменного імені
+    * artifactId - це вже назва конкретного проекту
+    * version - 1.0-SNAPSHOT - це ще заделіверено. Якщо реліз відбувася, то SNAPSHOT відсутній і джарка називається так: artifactId-1.0.jar
+    * packaging - jar/war
